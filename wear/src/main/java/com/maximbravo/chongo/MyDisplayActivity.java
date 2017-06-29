@@ -13,22 +13,28 @@ public class MyDisplayActivity extends Activity {
 
     private TextView character;
     private LinearLayout linearLayout;
+    private RelativeLayout relativeLayout;
     private TextView pinyin;
     private TextView definition;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display);
+        Utils.context = getApplicationContext();
         character = (TextView) findViewById(R.id.character);
+        character.setText(Utils.title);
         linearLayout = (LinearLayout) findViewById(R.id.layout);
+        relativeLayout = (RelativeLayout) findViewById(R.id.container);
         pinyin = (TextView) findViewById(R.id.pinyin);
         definition = (TextView) findViewById(R.id.definition);
         //pinyin.setVisibility(View.INVISIBLE);
-        linearLayout.setOnClickListener(new View.OnClickListener() {
+        relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 pinyin.setVisibility(View.VISIBLE);
+                pinyin.setText(Utils.pinyin);
                 definition.setVisibility(View.VISIBLE);
+                definition.setText(Utils.definition);
             }
         });
 
@@ -36,6 +42,6 @@ public class MyDisplayActivity extends Activity {
         if(transition != null) {
             transition.enableTransitionType(LayoutTransition.CHANGING);
         }
-        Toast.makeText(this, "What up just got clicked", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "What up just got clicked", Toast.LENGTH_SHORT).show();
     }
 }

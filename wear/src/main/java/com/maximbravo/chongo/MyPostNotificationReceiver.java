@@ -15,14 +15,17 @@ public class MyPostNotificationReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        int randomInt = (int)(Math.random() * 600) / 10 * 10;
+        Utils.updateVariables(randomInt);
+
         Intent displayIntent = new Intent(context, MyDisplayActivity.class);
-        String text = intent.getStringExtra(CONTENT_KEY);
+
 
         Bitmap bitmap = Bitmap.createBitmap(320,320, Bitmap.Config.ARGB_8888);
-        bitmap.eraseColor(context.getResources().getColor(R.color.colorPrimary));
+        bitmap.eraseColor(Utils.context.getResources().getColor(R.color.colorPrimary));
         Notification notification = new NotificationCompat.Builder(context)
                 .setSmallIcon(R.color.colorPrimary)
-                .setContentTitle(text)
+                .setContentTitle(Utils.title)
                 .extend(new NotificationCompat.WearableExtender()
                         .setBackground(bitmap)
                         .setCustomSizePreset(Notification.WearableExtender.SIZE_FULL_SCREEN)
