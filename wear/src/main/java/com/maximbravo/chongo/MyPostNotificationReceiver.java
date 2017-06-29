@@ -15,8 +15,8 @@ public class MyPostNotificationReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        int randomInt = (int)(Math.random() * 600) / 10 * 10;
-        Utils.updateVariables(randomInt);
+
+        Utils.updateVariables();
 
         Intent displayIntent = new Intent(context, MyDisplayActivity.class);
 
@@ -43,6 +43,6 @@ public class MyPostNotificationReceiver extends BroadcastReceiver {
 //                        .setDisplayIntent(PendingIntent.getActivity(context, 0, new Intent(context, MyActivity.class), 0)))
 //                .build();
 
-        Toast.makeText(context, context.getString(R.string.notification_posted), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(context, context.getString(R.string.notification_posted), Toast.LENGTH_SHORT).show();
     }
 }

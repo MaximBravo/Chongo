@@ -7,35 +7,50 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.WeakHashMap;
 
 /**
  * Created by Maxim Bravo on 6/28/2017.
  */
 
 public class Utils {
+    public static ArrayList<Word> hsk1;
+    public static ArrayList<Word> hsk2;
+    public static ArrayList<Word> hsk3;
     public static int frequency = 1;
     public static String title = "么";
+    public static int level = 1;
     public static String pinyin = "me";
     public static String definition = "what; particle for questions; question particle";
     public static Context context;
+
+    public static int selectedRadio;
+    public static boolean hsk1pref = false;
+    public static boolean hsk2pref = false;
+    public static boolean hsk3pref = false;
     public static void print(Context context, String msg) {
         Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
     }
 
-    private static String getPartOfCharacter(int i, int part){
-        int counter = 0;
+    public static void extractAll(){
+        hsk1 = new ArrayList<>();
+        hsk2 = new ArrayList<>();
+        hsk3 = new ArrayList<>();
         InputStream is = context.getResources().openRawResource(R.raw.hsksmall);
         BufferedReader reader = new BufferedReader(new InputStreamReader(is));
         try {
             String line;
             while ((line = reader.readLine()) != null) {
-                if(counter == i) {
-                    String[] rowData = line.split(",");
-                    return rowData[part];
+                String[] rowData = line.split(",");
+                Word word = new Word(rowData[0], rowData[1], rowData[2], rowData[3]);
+                if(rowData[3].equals("1")) {
+                    hsk1.add(word);
+                } else if (rowData[3].equals("2")) {
+                    hsk2.add(word);
                 } else {
-                    counter ++;
+                    hsk3.add(word);
                 }
-                // do something with "data" and "value"
             }
         }
         catch (IOException ex) {
@@ -49,12 +64,33 @@ public class Utils {
                 // handle exception
             }
         }
-        return "nope";
     }
 
-    public static void updateVariables(int randomInt) {
-        title = getPartOfCharacter(randomInt, 0);
-        pinyin = getPartOfCharacter(randomInt, 1);
-        definition = getPartOfCharacter(randomInt, 2);
+    public static void updateVariables() {
+        ArrayList<Word> pool = new ArrayList<>();
+        if(hsk1pref) {
+           pool.add(getRandom(hsk1));
+       }
+       if (hsk2pref) {
+           pool.add(getRandom(hsk2));
+       }
+       if(hsk3pref) {
+           pool.add(getRandom(hsk3));
+       }
+       if(pool.size() != 0) {
+           Word randomWord = getRandom(pool);
+           title = randomWord.getCharacter();
+           pinyin = randomWord.getPinyin();
+           definition = randomWord.getDefinition();
+           level = randomWord.getLevel();
+       }
+    }
+
+    private static Word getRandom(ArrayList<Word> list) {
+        if(list != null && list.size() != 0) {
+            int randomInt = (int) (Math.random() * list.size()) / 10 * 10;
+            return list.get(randomInt);
+        }
+        return new Word("Something", "Went", "wrong in getRandom method of Utils class", "21");
     }
 }

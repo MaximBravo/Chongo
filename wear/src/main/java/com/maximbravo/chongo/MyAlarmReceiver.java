@@ -66,9 +66,9 @@ public class MyAlarmReceiver extends WakefulBroadcastReceiver {
 
         Calendar calendar = Calendar.getInstance();
 
-        long futureInMillis = SystemClock.elapsedRealtime() + 5000;
+        long futureInMillis = SystemClock.elapsedRealtime() + 2000;
         // Set the alarm's trigger time to 8:30 a.m.
-        Utils.print(context, "set alarm to 11 42");
+        Utils.print(context, "Notification Posted!");
 //        calendar.set(Calendar.HOUR_OF_DAY, 8);
 //        calendar.set(Calendar.MINUTE, 33);
 

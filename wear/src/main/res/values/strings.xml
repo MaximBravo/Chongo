@@ -4,4 +4,9 @@
     <string name="hello">Hello World!</string>
     <string name="title">Hello Notification!</string>
     <string name="notification_posted">Notification posted</string>
+    <string name="five">5 mins</string>
+    <string name="ten">10 mins</string>
+    <string name="twenty">20 mins</string>
+    <string name="thirty">30 mins</string>
+    <string name="hour">1 hour</string>
 </resources>
